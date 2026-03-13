@@ -40,42 +40,27 @@ def download_song(query):
 
 @app.on_message(filters.command("play", "."))
 async def play(client, message):
-
     if len(message.command) < 2:
         return await message.reply("❌ Give song name")
 
     query = message.text.split(None, 1)[1].lower()
 
-    await message.reply("🔎 Searching...")
+    await message.reply("🔎 Searching in channel...")
 
-    if query in songs:
-        file_id = songs[query]
+    # Search in your Telegram channel
+    async for msg in app.search_messages("@BAKCHDOI63", query, filter="audio", limit=1):
+        file_id = msg.audio.file_id
         file = await app.download_media(file_id)
 
-    else:
-        file = download_song(query)
+        try:
+            await call.join_group_call(message.chat.id, AudioPiped(file))
+        except:
+            await call.change_stream(message.chat.id, AudioPiped(file))
 
-        msg = await app.send_audio(
-            CHANNEL,
-            file,
-            title=query
-        )
+        return await message.reply(f"▶️ Playing: {msg.audio.title}")
 
-        songs[query] = msg.audio.file_id
-
-    try:
-        await call.join_group_call(
-            message.chat.id,
-            AudioPiped(file)
-        )
-    except:
-        await call.change_stream(
-            message.chat.id,
-            AudioPiped(file)
-        )
-
-    await message.reply(f"▶️ Playing: {query}")
-
+    # If song not found
+    await message.reply("❌ Song not found in channel!")
 
 @app.on_message(filters.command("stop", "."))
 async def stop(client, message):
