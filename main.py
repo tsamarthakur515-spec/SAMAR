@@ -70,7 +70,7 @@ async def play(client, message):
 async def stop(client, message):
     try:
         await call.leave_group_call(message.chat.id)
-        await message.reply("sᴏɴɢ ʀᴜᴋ ɢʏᴀ ʙᴀʙᴜ 🫠")
+        await message.reply("sᴏɴɢ ʙᴀɴᴅ ʜᴏ ɢʏᴀ ʜᴀɪ ʙᴀʙᴜ 🥲")
     except Exception as e:
         await message.reply(f"⚠️ Could not leave VC: {e}")
 
