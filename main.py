@@ -1,4 +1,5 @@
 import os
+import asyncio
 import yt_dlp
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
@@ -86,4 +87,4 @@ async def stop(client, message):
 app.start()
 call.start()
 print("🎵 VC Music Bot Started")
-app.idle()
+asyncio.get_event_loop().run_forever()
