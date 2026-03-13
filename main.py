@@ -4,6 +4,7 @@ import yt_dlp
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
 from pytgcalls.types.input_stream import AudioPiped
+from pytgcalls.types.input_stream.quality import HighQualityAudio
 
 API_ID = 20898349
 API_HASH = "9fdb830d1e435b785f536247f49e7d87"
@@ -43,24 +44,38 @@ async def play(client, message):
     if len(message.command) < 2:
         return await message.reply("❌ Give song name")
 
-    query = message.text.split(None, 1)[1].lower()
+    query = message.text.split(None, 1)[1]
+    await message.reply("🔎 Searching Saavn...")
 
-    await message.reply("🔎 Searching in channel...")
+    async with aiohttp.ClientSession() as session:
+        search_url = f"https://flip-saavn.vercel.app/search?query={query}"
+        async with session.get(search_url) as resp:
+            data = await resp.json()
 
-    # Search in your Telegram channel
-    async for msg in app.search_messages("@BAKCHDOI63", query, filter="audio", limit=1):
-        file_id = msg.audio.file_id
-        file = await app.download_media(file_id)
+    results = data.get("results")
+    if not results:
+        return await message.reply("❌ No results found!")
 
-        try:
-            await call.join_group_call(message.chat.id, AudioPiped(file))
-        except:
-            await call.change_stream(message.chat.id, AudioPiped(file))
+    # Take first result, use highest quality
+    song = results[0]
+    stream_url = song["download"].get("320kbps") or song["download"].get("160kbps")
+    title = song.get("title")
 
-        return await message.reply(f"▶️ Playing: {msg.audio.title}")
+    if not stream_url:
+        return await message.reply("❌ No playable link found!")
 
-    # If song not found
-    await message.reply("❌ Song not found in channel!")
+    try:
+        await call.join_group_call(
+            message.chat.id,
+            AudioPiped(stream_url, HighQualityAudio())
+        )
+    except:
+        await call.change_stream(
+            message.chat.id,
+            AudioPiped(stream_url, HighQualityAudio())
+        )
+
+    await message.reply(f"▶️ Playing: {title}")
 
 @app.on_message(filters.command("stop", "."))
 async def stop(client, message):
