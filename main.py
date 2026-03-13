@@ -10,8 +10,7 @@ from pytgcalls.types.input_stream.quality import HighQualityAudio
 # ------------------- CONFIG -------------------
 API_ID = 33603336
 API_HASH = "c9683a8ec3b886c18219f650fc8ed429"
-SESSION =
-"BQIAvwgAtGpTYJxvUNp8rbi2VNdfNGw-foSWWvDtrWSVnLbKeor1FcHdS2DO3WAwKRUHYT9NyJGuBAIjd9cYSh0JGW7SZjxsMTs0xEWFeU7dxKhHatLzbjhIA8kUOxWj2chH_ags_7fIToe7_LFolcHFbdJhCKAuStVEV4bUXvn43vmALgKi87JQHAId5p9xB7atUNHxMebmAOq6JqABdoBCdtUJC7tEov8GBF0a1C4r8WE8wKoSp5vDjcu7mRIJrUcQ17LMHYY6ACErur_iH3zN2Ny7Nd3VYyIu7Fk7VfeErEZlw-EoNvB89m_e_KYWE3E6ITu-vAtHeTAMG_cDo771-c7GAwAAAAIAgPwVAA"
+SESSION = "BQIAvwgAtGpTYJxvUNp8rbi2VNdfNGw-foSWWvDtrWSVnLbKeor1FcHdS2DO3WAwKRUHYT9NyJGuBAIjd9cYSh0JGW7SZjxsMTs0xEWFeU7dxKhHatLzbjhIA8kUOxWj2chH_ags_7fIToe7_LFolcHFbdJhCKAuStVEV4bUXvn43vmALgKi87JQHAId5p9xB7atUNHxMebmAOq6JqABdoBCdtUJC7tEov8GBF0a1C4r8WE8wKoSp5vDjcu7mRIJrUcQ17LMHYY6ACErur_iH3zN2Ny7Nd3VYyIu7Fk7VfeErEZlw-EoNvB89m_e_KYWE3E6ITu-vAtHeTAMG_cDo771-c7GAwAAAAIAgPwVAA"
   # replace with your session
 # ----------------------------------------------
 
