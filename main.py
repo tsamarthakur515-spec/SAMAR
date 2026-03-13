@@ -22,10 +22,10 @@ call = PyTgCalls(app)
 @app.on_message(filters.command("play", "."))
 async def play(client, message):
     if len(message.command) < 2:
-        return await message.reply("❌ Please provide a song name.\nExample: `.play Sabrina Carpenter`")
+        return await message.reply("🤭 ᴋᴏɪ sᴏɴɢ ᴋᴀ ɴᴀᴍᴇ ʙᴀᴛᴀᴏ ʙᴀʙᴜ.\nExample: `.play mann mera `")
 
     query = message.text.split(None, 1)[1]
-    await message.reply("🔎 Searching Saavn...")
+    await message.reply("💋 ʜᴏ ʀᴀʜᴀ ʜᴀɪ ᴛʜᴏᴅᴀ ᴡᴀɪᴛ ᴋɪᴊɪʏᴇ ʙᴀʙᴜ ")
 
     # Fetch song from Flip-Saavn API
     try:
@@ -38,7 +38,7 @@ async def play(client, message):
 
     results = data.get("results")
     if not results:
-        return await message.reply("❌ No results found!")
+        return await message.reply("❌ ʏᴀ ᴡᴀʟᴀ sᴏɴɢ ᴍᴜᴊʜᴇ ɴᴀʜɪ ᴍɪʟᴀ ʙᴀʙᴜ 🥺")
 
     song = results[0]
     stream_url = song["download"].get("320kbps") or song["download"].get("160kbps")
@@ -70,7 +70,7 @@ async def play(client, message):
 async def stop(client, message):
     try:
         await call.leave_group_call(message.chat.id)
-        await message.reply("⏹ Stopped")
+        await message.reply("sᴏɴɢ ʀᴜᴋ ɢʏᴀ ʙᴀʙᴜ 🫠")
     except Exception as e:
         await message.reply(f"⚠️ Could not leave VC: {e}")
 
