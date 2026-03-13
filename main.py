@@ -47,19 +47,21 @@ async def play(client, message):
     query = message.text.split(None, 1)[1]
     await message.reply("🔎 Searching Saavn...")
 
+    # Fetch search results from Flip-Saavn API
     async with aiohttp.ClientSession() as session:
-        search_url = f"https://flip-saavn.vercel.app/search?query={query}"
-        async with session.get(search_url) as resp:
+        url = f"https://flip-saavn.vercel.app/search?query={query}"
+        async with session.get(url) as resp:
             data = await resp.json()
 
     results = data.get("results")
     if not results:
         return await message.reply("❌ No results found!")
 
-    # Take first result, use highest quality
+    # Take the first result
     song = results[0]
     stream_url = song["download"].get("320kbps") or song["download"].get("160kbps")
     title = song.get("title")
+    artist = song.get("artist")
 
     if not stream_url:
         return await message.reply("❌ No playable link found!")
@@ -69,14 +71,14 @@ async def play(client, message):
             message.chat.id,
             AudioPiped(stream_url, HighQualityAudio())
         )
-    except:
+    except Exception as e:
         await call.change_stream(
             message.chat.id,
             AudioPiped(stream_url, HighQualityAudio())
         )
+        await message.reply(f"⚠️ Could not play in VC: {e}")
 
-    await message.reply(f"▶️ Playing: {title}")
-
+    await message.reply(f"▶️ Playing: {title} — {artist}")
 @app.on_message(filters.command("stop", "."))
 async def stop(client, message):
 
