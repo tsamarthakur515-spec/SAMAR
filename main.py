@@ -22,10 +22,10 @@ call = PyTgCalls(app)
 @app.on_message(filters.command("play", "."))
 async def play(client, message):
     if len(message.command) < 2:
-        return await message.reply("🤭 ᴋᴏɪ sᴏɴɢ ᴋᴀ ɴᴀᴍᴇ ʙᴀᴛᴀᴏ ʙᴀʙᴜ.\nExample: `.play mann mera `")
+        return await message.reply("ᴋᴏɪ sᴏɴɢ ᴋᴀ ɴᴀᴍᴇ ʙᴀᴛᴀᴏ ɴᴀ ʙᴀʙᴜ 🤭\nExample: `.play mann mera `")
 
     query = message.text.split(None, 1)[1]
-    await message.reply("💋 ʜᴏ ʀᴀʜᴀ ʜᴀɪ ᴛʜᴏᴅᴀ ᴡᴀɪᴛ ᴋɪᴊɪʏᴇ ʙᴀʙᴜ ")
+    await message.reply(" sᴏɴɢ ᴘʟᴀʏ ʜᴏ ʀᴀʜᴀ ʜᴀɪ ᴛʜᴏᴅᴀ ᴡᴀɪᴛ ᴋɪᴊɪʏᴇ ɴᴀ ʙᴀʙᴜ 💋")
 
     # Fetch song from Flip-Saavn API
     try:
@@ -38,7 +38,7 @@ async def play(client, message):
 
     results = data.get("results")
     if not results:
-        return await message.reply("❌ ʏᴀ ᴡᴀʟᴀ sᴏɴɢ ᴍᴜᴊʜᴇ ɴᴀʜɪ ᴍɪʟᴀ ʙᴀʙᴜ 🥺")
+        return await message.reply("ʏᴀ ᴡᴀʟᴀ sᴏɴɢ ᴍᴜᴊʜᴇ ɴᴀʜɪ ᴍɪʟᴀ ʀᴀʜᴀ ʜᴀɪ 🥺")
 
     song = results[0]
     stream_url = song["download"].get("320kbps") or song["download"].get("160kbps")
@@ -63,7 +63,7 @@ async def play(client, message):
         except Exception as e2:
             return await message.reply(f"⚠️ Could not play in VC: {e2}")
 
-    await message.reply(f"▶️ Playing: {title} — {artist}")
+    await message.reply(f"❖ sᴛᴀʀᴛᴇᴅ sᴛʀᴇᴀᴍɪɴɢ | {title} — {artist}")
 
 
 @app.on_message(filters.command("stop", "."))
