@@ -41,9 +41,11 @@ async def play(client, message):
         return await message.reply("ʏᴀ ᴡᴀʟᴀ sᴏɴɢ ᴍᴜᴊʜᴇ ɴᴀʜɪ ᴍɪʟᴀ ʀᴀʜᴀ ʜᴀɪ 🥺")
 
     song = results[0]
+
     stream_url = song["download"].get("320kbps") or song["download"].get("160kbps")
-    title = song.get("title")
-    artist = song.get("artist")
+    title = song.get("title", "Unknown")
+    artist = song.get("artist", "Unknown")
+    duration = song.get("duration", "Unknown")
 
     if not stream_url:
         return await message.reply("❌ No playable link found!")
@@ -54,7 +56,7 @@ async def play(client, message):
             message.chat.id,
             AudioPiped(stream_url, HighQualityAudio())
         )
-    except Exception as e:
+    except Exception:
         try:
             await call.change_stream(
                 message.chat.id,
@@ -63,7 +65,15 @@ async def play(client, message):
         except Exception as e2:
             return await message.reply(f"⚠️ Could not play in VC: {e2}")
 
-    await message.reply(f"❖ sᴛᴀʀᴛᴇᴅ sᴛʀᴇᴀᴍɪɴɢ | {title} — {artist}")
+    await message.reply(
+        f"🎧 <b>Started Streaming</b>\n\n"
+        f"🎵 <b>Title:</b> {title}\n"
+        f"👤 <b>Artist:</b> {artist}\n"
+        f"⏱ <b>Duration:</b> {duration}\n\n"
+        f"🙋 <b>Requested by:</b> {message.from_user.first_name}\n"
+        f"🔗 <b>API by:</b> <a href='https://t.me/sxyaru'>Aru x API Bots</a>",
+        parse_mode="html"
+    )
 
 
 @app.on_message(filters.command("stop", "."))
