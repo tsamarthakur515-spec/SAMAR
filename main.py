@@ -66,12 +66,12 @@ async def play(client, message):
             return await message.reply(f"⚠️ Could not play in VC: {e2}")
 
     await message.reply(
-        f"🎧 <b>Started Streaming</b>\n\n"
-        f"🎵 <b>Title:</b> {title}\n"
-        f"👤 <b>Artist:</b> {artist}\n"
-        f"⏱ <b>Duration:</b> {duration}\n\n"
-        f"🙋 <b>Requested by:</b> {message.from_user.first_name}\n"
-        f"🔗 <b>API by:</b> <a href='https://t.me/sxyaru'>Aru x API Bots</a>",
+        f"🎧 Started Streaming\n\n"
+        f"🎵 Title: {title}\n"
+        f"👤 Artist: {artist}\n"
+        f"⏱  Duration: {duration}\n\n"
+        f"🙋 Requested by: {message.from_user.first_name}\n"
+        f"🔗 API by: <a href='https://t.me/sxyaru'>Aru x API Bots</a>",
         parse_mode="html"
     )
 
